@@ -3,9 +3,6 @@ public class Max {
         System.out.println(sequence(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
     }
     public static int sequence(int[] arr) {
-        if (arr.length == 0) {
-            return 0;
-        }
         int tempSum = 0;
         int maxSum = 0;
         for (int i = 0; i < arr.length; i++) {
