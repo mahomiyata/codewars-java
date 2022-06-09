@@ -5,15 +5,11 @@ public class Scramblies {
     }
 
     public static boolean scramble(String str1, String str2) {
-        String[] str2Chars = str2.split("");
-        for (String str2Char : str2Chars) {
-            int index = str1.indexOf(str2Char);
-            if (index < 0) {
+        for (String str2Char : str2.split("")) {
+            if (str1.contains(str2Char)) {
                 return false;
             }
-            StringBuilder sb = new StringBuilder(str1);
-            sb.setCharAt(index, '-');
-            str1 = sb.toString();
+            str1 = str1.replaceFirst(str2Char, "");
         }
         return true;
     }
