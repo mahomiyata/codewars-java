@@ -4,7 +4,7 @@ public class HexToRGB {
 
     public static void main(String[] args) {
         int[] rgb = hexStringToRGB("#FF9933");
-        Arrays.stream(rgb).forEach(i -> System.out.println(i));
+        Arrays.stream(rgb).forEach(System.out::println);
     }
 
     public static int[] hexStringToRGB(String hex) {
