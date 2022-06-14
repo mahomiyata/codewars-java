@@ -1,49 +1,70 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimeFormatter {
 
     public static void main(String[] args) {
-        System.out.println(3600 * 24);
-        System.out.println(3600 * 24 * 365);
-        System.out.println(formatDuration(62));
+        System.out.println(formatDuration(86892));
     }
 
     public static String formatDuration(int seconds) {
 
         if (seconds == 0) return "now";
 
-        int year = 0;
-        int day = 0;
-        int hour = 0;
-        int minute = 0;
+        List<Integer> value = new ArrayList<>();
+        List<String> term = new ArrayList<>();
 
         if (seconds >= 31536000) {
-            year = seconds / 31536000;
+            int year = seconds / 31536000;
+            value.add(year);
+            term.add( year == 1 ? "year" : "years" );
             seconds -= year * 31536000;
         }
         if (seconds >= 86400) {
-            day = seconds / 86400;
+            int day = seconds / 86400;
+            value.add(day);
+            term.add( day == 1 ? "day" : "days" );
             seconds -= day * 86400;
         }
         if (seconds >= 3600) {
-            hour = seconds / 3600;
+            int hour = seconds / 3600;
+            value.add(hour);
+            term.add( hour == 1 ? "hour" : "hours" );
             seconds -= hour * 3600;
         }
         if (seconds >= 60) {
-            minute = seconds / 60;
+            int minute = seconds / 60;
+            value.add(minute);
+            term.add( minute == 1 ? "minute" : "minutes" );
             seconds -= minute * 60;
         }
-        String formattedString = "";
-        if (hour > 0) {
-            formattedString += hour == 1 ? hour + " hour" : hour + " hours";
-        }
-        if (minute > 0) {
-            formattedString += hour > 0 && minute > 0 && seconds > 0 ? ", " : "";
-            formattedString += hour > 0 && minute > 0 && !(seconds > 0) ? " and " : "";
-            formattedString += minute == 1 ? minute + " minute" : minute + " minutes";
-        }
         if (seconds > 0) {
-            formattedString += minute > 0 && seconds > 0 ? " and " : "";
-            formattedString += seconds == 1 ? seconds + " second" : seconds + " seconds";
+            value.add(seconds);
+            term.add( seconds == 1 ? "second" : "seconds" );
         }
+
+        String formattedString = "";
+        int counter = value.size();
+
+        System.out.println(value);
+        System.out.println(term);
+
+        for (int i = 0; i < value.size(); i++) {
+            if (counter > 2) {
+                formattedString += value.get(i) + " " + term.get(i) + ", ";
+                counter--;
+                continue;
+            }
+            if (counter == 2) {
+                formattedString += value.get(i) + " " + term.get(i) + " and " + value.get(i+1) + " " + term.get(i+1);
+                break;
+            }
+            if (counter == 1) {
+                formattedString += value.get(i) + " " + term.get(i);
+                break;
+            }
+        }
+
         return formattedString;
     }
 }
