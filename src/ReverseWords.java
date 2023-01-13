@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ReverseWords {
     @Test
@@ -25,15 +26,9 @@ public class ReverseWords {
         if (original.matches("^\s+$")) {
             return original;
         }
-        String[] words = original.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            String reversed = "";
-            for (int j = words[i].length() - 1; j >= 0; j--) {
-                reversed += "" + words[i].charAt(j);
-            }
-            words[i] = reversed;
-        }
-        return Arrays.stream(words).collect(Collectors.joining(" "));
+        return Stream.of(original.split(" "))
+                .map(word -> new StringBuilder(word).reverse().toString())
+                .collect(Collectors.joining(" "));
     }
 
 }
