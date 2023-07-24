@@ -1,20 +1,11 @@
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListFiltering {
     public static List<Object> filterList(final List<Object> list) {
         // Return the List with the Strings filtered out
-        List<Object> result = new ArrayList<>();
-        for (Object item : list) {
-            if (item instanceof Integer) {
-                result.add(item);
-            }
-        }
-        return result;
+        return list.stream().filter(item -> item instanceof Integer).toList();
     }
 }
 
